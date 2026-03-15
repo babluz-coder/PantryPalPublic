@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Delete My Account – PantryPal Family</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #F5F0E8;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 24px;
+      padding: 48px 40px;
+      max-width: 520px;
+      width: 100%;
+      box-shadow: 0 4px 32px rgba(0,0,0,0.08);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .logo-icon {
+      width: 48px;
+      height: 48px;
+      background: #E8621A;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+
+    .logo-text {
+      font-size: 22px;
+      font-weight: 900;
+      color: #3D2B1F;
+    }
+
+    .logo-sub {
+      font-size: 13px;
+      color: #9B8B7A;
+      font-weight: 600;
+    }
+
+    h1 {
+      font-size: 26px;
+      font-weight: 900;
+      color: #3D2B1F;
+      margin-bottom: 12px;
+    }
+
+    .subtitle {
+      font-size: 15px;
+      color: #9B8B7A;
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+
+    .warning-box {
+      background: #FEF2F2;
+      border: 1.5px solid #FEE2E2;
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 28px;
+    }
+
+    .warning-box p {
+      font-size: 13px;
+      color: #DC2626;
+      font-weight: 600;
+      line-height: 1.6;
+    }
+
+    .warning-box p::before {
+      content: "⚠️ ";
+    }
+
+    label {
+      display: block;
+      font-size: 11px;
+      font-weight: 800;
+      color: #9B8B7A;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    input, textarea {
+      width: 100%;
+      background: #F5F0E8;
+      border: none;
+      border-radius: 14px;
+      padding: 14px 16px;
+      font-size: 15px;
+      color: #3D2B1F;
+      font-family: inherit;
+      outline: none;
+      margin-bottom: 20px;
+    }
+
+    input::placeholder, textarea::placeholder {
+      color: #C4B5A5;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .submit-btn {
+      width: 100%;
+      background: #DC2626;
+      color: white;
+      border: none;
+      border-radius: 16px;
+      padding: 16px;
+      font-size: 16px;
+      font-weight: 900;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.2s;
+    }
+
+    .submit-btn:hover { background: #B91C1C; }
+    .submit-btn:disabled { background: #C4B5A5; cursor: not-allowed; }
+
+    .success {
+      display: none;
+      text-align: center;
+      padding: 24px 0;
+    }
+
+    .success .icon { font-size: 56px; margin-bottom: 16px; }
+
+    .success h2 {
+      font-size: 22px;
+      font-weight: 900;
+      color: #3D2B1F;
+      margin-bottom: 10px;
+    }
+
+    .success p {
+      font-size: 14px;
+      color: #9B8B7A;
+      line-height: 1.6;
+    }
+
+    .footer {
+      margin-top: 28px;
+      padding-top: 20px;
+      border-top: 1px solid #F0EBE0;
+      font-size: 12px;
+      color: #9B8B7A;
+      line-height: 1.6;
+    }
+
+    .footer a {
+      color: #E8621A;
+      text-decoration: none;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo">
+      <div class="logo-icon">🧺</div>
+      <div>
+        <div class="logo-text">PantryPal</div>
+        <div class="logo-sub">Family App</div>
+      </div>
+    </div>
+
+    <div id="form-section">
+      <h1>Delete My Account</h1>
+      <p class="subtitle">
+        Submit this form to request permanent deletion of your PantryPal account and all associated data.
+        We will process your request within 30 days.
+      </p>
+
+      <div class="warning-box">
+        <p>This action is permanent and cannot be undone. All your pantry items, budget history, shopping lists, recipes, and savings data will be permanently deleted.</p>
+      </div>
+
+      <form id="delete-form" onsubmit="handleSubmit(event)">
+        <label>Email address used to sign up</label>
+        <input
+          type="email"
+          id="email"
+          placeholder="your@email.com"
+          required
+        />
+
+        <label>Reason for deletion (optional)</label>
+        <textarea
+          id="reason"
+          placeholder="Let us know why you're leaving (optional)..."
+        ></textarea>
+
+        <button type="submit" class="submit-btn" id="submit-btn">
+          Request Account Deletion
+        </button>
+      </form>
+    </div>
+
+    <div class="success" id="success-section">
+      <div class="icon">✅</div>
+      <h2>Request Received</h2>
+      <p>
+        We've received your deletion request for <strong id="submitted-email"></strong>.<br /><br />
+        Your account and all associated data will be permanently deleted within <strong>30 days</strong>.
+        You will receive a confirmation email once the deletion is complete.
+      </p>
+    </div>
+
+    <div class="footer">
+      Questions? Contact us at
+      <a href="mailto:privacy@pantrypalfamily.app">privacy@pantrypalfamily.app</a><br />
+      <a href="#">Privacy Policy</a> · PantryPal Family · com.pantrypalfamily.app
+    </div>
+  </div>
+
+  <script>
+    function handleSubmit(e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const btn = document.getElementById('submit-btn');
+
+      btn.disabled = true;
+      btn.textContent = 'Submitting...';
+
+      // Send deletion request via mailto
+      // Replace with your actual backend endpoint when ready
+      const subject = encodeURIComponent('Account Deletion Request – PantryPal');
+      const body = encodeURIComponent(
+        'Account Deletion Request\n\n' +
+        'Email: ' + email + '\n' +
+        'Reason: ' + (document.getElementById('reason').value || 'Not provided') + '\n' +
+        'Date: ' + new Date().toISOString()
+      );
+
+      window.location.href = 'mailto:privacy@pantrypalfamily.app?subject=' + subject + '&body=' + body;
+
+      // Show success state
+      setTimeout(() => {
+        document.getElementById('form-section').style.display = 'none';
+        document.getElementById('submitted-email').textContent = email;
+        document.getElementById('success-section').style.display = 'block';
+      }, 800);
+    }
+  </script>
+</body>
+</html>
